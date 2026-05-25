@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+@media (max-width: 768px) {
+
+  .desktop-menu {
+
+    display: none !important;
+
+  }
+
+  .hamburger {
+
+    display: block !important;
+
+  }
+
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}

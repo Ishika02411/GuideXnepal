@@ -1,48 +1,220 @@
+import logo from "../assets/logo.png";
+
+import React, {
+  useState,
+  useEffect,
+} from "react";
+
 import { Link } from "react-router-dom";
 
-function Navbar() {
+const Navbar = () => {
+
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
+  const [scrolled, setScrolled] =
+    useState(false);
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+
+      if (window.scrollY > 50) {
+
+        setScrolled(true);
+
+      } else {
+
+        setScrolled(false);
+
+      }
+
+    };
+
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
+
+    return () =>
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+
+  }, []);
 
   return (
 
-    <nav className="flex justify-between items-center px-10 py-5 bg-white shadow-md">
+    <nav
+      style={{
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        zIndex: 1000,
+        padding: "18px 40px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        background: scrolled
+          ? "rgba(15,23,42,0.95)"
+          : "transparent",
+        backdropFilter: "blur(10px)",
+        transition: "0.3s",
+      }}
+    >
 
-      {/* Logo */}
+      {/* LOGO */}
 
-      <h1 className="text-3xl font-bold text-blue-900">
+     <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+  }}
+>
+  <img
+    src={logo}
+    alt="GuideXNepal Logo"
+    style={{
+      width: "42px",
+      height: "42px",
+      objectFit: "contain",
+      borderRadius: "12px",
+    }}
+  />
 
-        GuideXNepal
+  <h1
+    style={{
+      color: "white",
+      fontSize: "32px",
+      fontWeight: "bold",
+      margin: 0,
+    }}
+  >
+    GuideXNepal
+  </h1>
+</div>
 
-      </h1>
+      {/* DESKTOP LINKS */}
 
-      {/* Navigation Links */}
-
-      <div className="flex gap-8 text-lg font-medium">
+      <div
+        className="desktop-menu"
+        style={{
+          display: "flex",
+          gap: "30px",
+          alignItems: "center",
+        }}
+      >
 
         <Link
           to="/"
-          className="hover:text-blue-600 transition"
+          style={{
+            color: "white",
+            textDecoration: "none",
+          }}
         >
           Home
         </Link>
 
         <Link
           to="/locations"
-          className="hover:text-blue-600 transition"
+          style={{
+            color: "white",
+            textDecoration: "none",
+          }}
         >
           Locations
         </Link>
 
         <Link
-          to="/login"
-          className="hover:text-blue-600 transition"
+          to="/admin"
+          style={{
+            color: "white",
+            textDecoration: "none",
+          }}
         >
-          Login
+          Admin
         </Link>
 
       </div>
 
+      {/* HAMBURGER */}
+
+      <div
+        onClick={() =>
+          setMenuOpen(!menuOpen)
+        }
+        style={{
+          color: "white",
+          fontSize: "2rem",
+          cursor: "pointer",
+          display: "none",
+        }}
+        className="hamburger"
+      >
+        ☰
+      </div>
+
+      {/* MOBILE MENU */}
+
+      {
+        menuOpen && (
+
+          <div
+            style={{
+              position: "absolute",
+              top: "80px",
+              right: "20px",
+              background: "#0f172a",
+              padding: "25px",
+              borderRadius: "12px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              minWidth: "200px",
+            }}
+          >
+
+            <Link
+              to="/"
+              style={{
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              Home
+            </Link>
+
+            <Link
+              to="/locations"
+              style={{
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              Locations
+            </Link>
+
+            <Link
+              to="/admin"
+              style={{
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              Admin
+            </Link>
+
+          </div>
+
+        )
+      }
+
     </nav>
+
   );
-}
+
+};
 
 export default Navbar;
