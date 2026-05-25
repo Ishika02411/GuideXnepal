@@ -1,44 +1,27 @@
 const locations = [
-
   {
     id: 1,
-    name: "Pokhara",
-
+    name: "Mount Everest",
+    description: "Highest mountain in the world",
     image:
-      "https://t4.ftcdn.net/jpg/02/91/60/01/360_F_291600113_iRFRutNzEWr4EJGNi5yjCyS2MfLElBUK.jpg",
-
-    description:
-      "Beautiful lakes and mountains",
-
-    whatsapp: "8218867299",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
   },
 
   {
     id: 2,
-    name: "Kathmandu",
-
+    name: "Pokhara",
+    description: "Beautiful lake city",
     image:
-      "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1470&auto=format&fit=crop",
-
-    description:
-      "Capital city with heritage sites",
-
-    whatsapp: "8218867299",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
   },
 
   {
     id: 3,
-    name: "Chitwan",
-
+    name: "Lumbini",
+    description: "Birthplace of Buddha",
     image:
-      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1470&auto=format&fit=crop",
-
-    description:
-      "National park and jungle safari",
-
-    whatsapp: "8218867299",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156",
   },
-
 ];
 
 export default locations;
