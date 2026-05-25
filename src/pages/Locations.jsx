@@ -1,111 +1,54 @@
-import { useState, useEffect } from "react";
-
-import Navbar from "../components/Navbar";
-
-import LocationCard from "../components/LocationCard";
-
-import Footer from "../components/Footer";
-
-import SkeletonCard from "../components/SkeletonCard";
-
+import { useEffect, useState } from "react";
 import axios from "axios";
+import LocationCard from "../components/LocationCard";
+import locations from "../data/locations";
 
 function Locations() {
-
-  const [loading, setLoading] = useState(true);
 
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
 
-  const fetchLocations = async () => {
+    axios
+      .get("http://localhost:5000/api/locations")
+      .then((res) => {
+        setLocations(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    try {
-
-      const res = await axios.get(
-        "http://localhost:5000/api/locations"
-      );
-
-      setLocations(res.data);
-
-      setLoading(false);
-
-    } catch (error) {
-
-      console.log(error);
-
-      setLoading(false);
-
-    }
-
-  };
-
-  fetchLocations();
-
-}, []);
+  }, []);
 
   return (
 
-    <div className="bg-gray-100">
+    <div className="min-h-screen bg-gray-100 p-6">
 
-      <Navbar />
+      <h1 className="text-4xl font-bold text-center text-blue-900 mb-10">
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
+        Tourist Locations
 
-        <h1 className="text-5xl font-bold text-center text-blue-900">
+      </h1>
 
-          Popular Destinations
+      <div className="grid md:grid-cols-3 gap-8">
 
-        </h1>
+        {
 
-        <p className="text-center text-gray-600 mt-4 text-xl">
+          locations.map((location) => (
 
-          Explore the best tourist places in Nepal.
+            <LocationCard
+              key={location._id}
+              location={location}
+            />
 
-        </p>
+          ))
 
-        {/* Cards */}
-
-        <div className="grid md:grid-cols-3 gap-10 mt-10 pb-10">
-
-  {
-
-    loading
-
-      ? (
-
-        <>
-
-          <SkeletonCard />
-
-          <SkeletonCard />
-
-          <SkeletonCard />
-
-        </>
-
-      )
-
-      : (
-
-        locations.map((location) => (
-
-          <LocationCard
-            key={location.id}
-            location={location}
-          />
-
-        ))
-
-      )
-
-  }
-
-</div>
+        }
 
       </div>
-<Footer />
+
     </div>
+
   );
 }
 
